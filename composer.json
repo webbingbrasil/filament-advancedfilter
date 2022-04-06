@@ -1,0 +1,42 @@
+{
+    "name": "webbingbrasil/filament-advancedfilter",
+    "description": "Advanced filter component for filament admin.",
+    "keywords": [
+        "laravel",
+        "filament",
+        "filter"
+    ],
+    "homepage": "https://github.com/webbingbrasil/filament-advancedfilter",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danilo Andrade",
+            "email": "danilo@webbingbrasil.com.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "spatie/laravel-package-tools": "^1.9.2",
+        "filament/filament": "^2.10.40"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Webbingbrasil\\FilamentAdvancedFilter\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webbingbrasil\\FilamentAdvancedFilter\\FilamentAdvancedFilterProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
