@@ -1,7 +1,7 @@
 
 # Filament Advanced Filter
 
-Advanced filter component for filament admin
+Advanced filters for filament admin
 
 ## Installation
 
@@ -81,6 +81,24 @@ This filter allows user to search records in some conditions:
 - Is on or after/before user's input
 - Is more than/less than user's input
 - Is between user's input
+- Is set/not set
+
+### TextFilter
+
+Filter records by text column: 
+
+```php
+use Webbingbrasil\FilamentAdvancedFilter\Filters\NumberFilter;
+
+TextFilter::make('name')
+```
+
+This filter allows the user to search for the following conditions:
+
+- Is equal/not equal to user's input
+- Starts/not starts with user's input
+- Ends/not ends with user's input
+- Contains/not contains user's input
 - Is set/not set
 
 ## Credits
