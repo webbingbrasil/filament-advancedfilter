@@ -81,9 +81,17 @@ class DateFilter extends Filter
             );
     }
 
-    protected function formatPeriodClause($data): Carbon
+    protected function formatPeriodClause($data): ?Carbon
     {
-        return Carbon::parse(intval($data['value']) . ' ' . ($data['period'] ?? 'days') . ' ' . $data['direction']);
+        if (empty($data['value'])) {
+            return null;
+        }
+
+        return Carbon::parse(implode(' ', [
+            intval($data['value']),
+            $data['period'],
+            $data['direction']
+        ]));
     }
 
     protected function fields(): array
@@ -113,22 +121,25 @@ class DateFilter extends Filter
                 ])),
             Select::make('period')
                 ->options([
+                    'days' => 'days',
                     'weeks' => 'weeks',
                     'months' => 'months',
                     'years' => 'years',
                 ])
                 ->disableLabel()
-                ->placeholder('days')
+                ->default('days')
+                ->disablePlaceholderSelection()
                 ->when(fn ($get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
             Select::make('direction')
                 ->options([
+                    null => 'from now',
                     'ago' => 'ago'
                 ])
                 ->disableLabel()
-                ->placeholder('from now')
+                ->disablePlaceholderSelection()
                 ->when(fn ($get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
