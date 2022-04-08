@@ -7,10 +7,5 @@ use Spatie\LaravelPackageTools\Package;
 
 class FilamentAdvancedFilterProvider extends PluginServiceProvider
 {
-    public static string $name = 'filament-2fa';
-
-    public function packageConfigured(Package $package): void
-    {
-
-    }
+    public static string $name = 'filament-advancedfilter';
 }

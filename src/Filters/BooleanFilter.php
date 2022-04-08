@@ -2,28 +2,87 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Webbingbrasil\FilamentAdvancedFilter\AdvancedFilter;
+use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
-class BooleanFilter extends AdvancedFilter
+class BooleanFilter extends Filter
 {
+    use HasClauses;
 
     const CLAUSE_IS_TRUE = 'true';
     const CLAUSE_IS_FALSE = 'false';
+    const CLAUSE_SET = 'set';
+    const CLAUSE_NOT_SET = 'not_set';
+
+    protected bool $showUnknowns = false;
+    protected ?bool $nullsAre = null;
 
     protected function clauses(): array
     {
         return [
             static::CLAUSE_IS_TRUE => 'Is true',
             static::CLAUSE_IS_FALSE => 'Is false',
-        ];
+        ] + ($this->showUnknowns && $this->nullsAre === null ? [
+            self::CLAUSE_SET => 'Is set',
+            self::CLAUSE_NOT_SET => 'Is not set',
+        ] : []);
     }
 
-    protected function applyFilter(Builder $query, string $column, array $data = []): Builder
+    protected function applyClause(Builder $query, string $column, string $clause, array $data = []): Builder
     {
-        $operator = '=';
-        $value = $data['clause'] === self::CLAUSE_IS_TRUE;
+        $operator = match ($clause) {
+            static::CLAUSE_SET => '!=',
+            default => '='
+        };
+
+        $value = match ($clause) {
+            self::CLAUSE_IS_TRUE => true,
+            self::CLAUSE_IS_FALSE => false,
+            default => null,
+        };
+
+        if ($this->nullsAre !== null && $this->nullsAre === $value) {
+            return $query->where(fn (Builder $query) =>
+                $query->where($column, $operator, $value)->orWhereNull($column)
+            );
+        }
 
         return $query->where($column, $operator, $value);
+    }
+
+    public function showUnknowns(): static
+    {
+        $this->showUnknowns = true;
+
+        return $this->nullsAreUnknown();
+    }
+
+    public function hideUnknowns(): static
+    {
+        $this->showUnknowns = false;
+
+        return $this;
+    }
+
+    public function nullsAreTrue(): static
+    {
+        $this->nullsAre = true;
+
+        return $this;
+    }
+
+    public function nullsAreFalse(): static
+    {
+        $this->nullsAre = false;
+
+        return $this;
+    }
+
+    public function nullsAreUnknown(): static
+    {
+        $this->nullsAre = null;
+
+        return $this;
     }
 }

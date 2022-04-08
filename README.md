@@ -1,3 +1,4 @@
+
 # Filament Advanced Filter
 
 Advanced filter component for filament admin
@@ -51,13 +52,14 @@ This filter allows user to search records in some conditions:
 
 - Is equal/not equal to user's input
 - Is on or after/before user's input
-- Is more than/less than user's input
+- Is more/less than user's input
   
-    the user is has the option to choose a time period in the future or the past, for example:
+    the user has the option to choose a **time interval** (day, week, month, year) in the **future/past**, for example:
   - more than 3 days from now
   - more than 4 months ago
   - less than 5 weeks from now
   - less than 6 days ago
+  - more than 1 year ago
 
 - Is between user's input
 - Is set/not set

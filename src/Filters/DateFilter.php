@@ -3,14 +3,16 @@
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
 use Carbon\Carbon;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Webbingbrasil\FilamentAdvancedFilter\AdvancedFilter;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
-class DateFilter extends AdvancedFilter
+class DateFilter extends Filter
 {
+    use HasClauses;
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
@@ -37,16 +39,16 @@ class DateFilter extends AdvancedFilter
         ];
     }
 
-    protected function applyFilter(Builder $query, string $column, array $data = []): Builder
+    protected function applyClause(Builder $query, string $column, string $clause, array $data = []): Builder
     {
-        $operator = match ($data['clause']) {
+        $operator = match ($clause) {
             static::CLAUSE_EQUAL, static::CLAUSE_NOT_SET => '=',
             static::CLAUSE_NOT_EQUAL, static::CLAUSE_SET => '!=',
             static::CLAUSE_GREATER_OR_EQUAL => '>=',
             static::CLAUSE_LESS_OR_EQUAL => '<=',
             static::CLAUSE_GREATER_THAN => '>',
             static::CLAUSE_LESS_THAN => '<',
-            default => $data['clause']
+            default => $clause
         };
 
         if ($operator === static::CLAUSE_BETWEEN) {
@@ -61,12 +63,12 @@ class DateFilter extends AdvancedFilter
                 );
         }
 
-        $value = match ($data['clause']) {
-            static::CLAUSE_LESS_THAN, static::CLAUSE_GREATER_THAN => Carbon::parse(intval($data['value']) . ' ' . ($data['period'] ?? 'days') . ' ' . $data['direction']),
+        $value = match ($clause) {
+            static::CLAUSE_LESS_THAN, static::CLAUSE_GREATER_THAN => $this->formatPeriodClause($data),
             default => $data['value']
         };
 
-        $isSetClause = in_array($data['clause'], [static::CLAUSE_NOT_SET, static::CLAUSE_SET]);
+        $isSetClause = in_array($clause, [static::CLAUSE_NOT_SET, static::CLAUSE_SET]);
 
         return $query
             ->when(
@@ -77,6 +79,11 @@ class DateFilter extends AdvancedFilter
                 !empty($value) && !$isSetClause,
                 fn(Builder $query) => $query->where($column, $operator, $value)
             );
+    }
+
+    protected function formatPeriodClause($data): Carbon
+    {
+        return Carbon::parse(intval($data['value']) . ' ' . ($data['period'] ?? 'days') . ' ' . $data['direction']);
     }
 
     protected function fields(): array

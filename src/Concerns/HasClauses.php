@@ -1,15 +1,14 @@
 <?php
 
-namespace Webbingbrasil\FilamentAdvancedFilter;
+namespace Webbingbrasil\FilamentAdvancedFilter\Concerns;
 
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\Concerns\HasRelationship;
-use Filament\Tables\Filters\Filter;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-abstract class AdvancedFilter extends Filter
+trait HasClauses
 {
     use HasRelationship;
 
@@ -33,17 +32,20 @@ abstract class AdvancedFilter extends Filter
             return parent::apply($query, $data);
         }
 
-        if (blank($data['clause'] ?? null)) {
+        $clause = $data['clause'] ?? null;
+        unset($data['clause']);
+
+        if (blank($clause)) {
             return $query;
         }
 
         if ($this->queriesRelationships()) {
-            return $query->whereHas($this->getRelationshipName(), function ($query) use ($data) {
-                $this->applyFilter($query, $this->getRelationshipKey(), $data);
+            return $query->whereHas($this->getRelationshipName(), function ($query) use ($clause, $data) {
+                $this->applyClause($query, $this->getRelationshipKey(), $clause, $data);
             });
         }
 
-        return $this->applyFilter($query, $this->getColumn(), $data);
+        return $this->applyClause($query, $this->getColumn(), $clause, $data);
     }
 
     public function getFormSchema(): array
@@ -66,6 +68,6 @@ abstract class AdvancedFilter extends Filter
 
     abstract protected function clauses(): array;
 
-    abstract protected function applyFilter(Builder $query, string $column, array $data = []): Builder;
+    abstract protected function applyClause(Builder $query, string $column, string $clause, array $data = []): Builder;
 
 }

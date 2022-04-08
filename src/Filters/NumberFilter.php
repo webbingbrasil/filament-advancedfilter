@@ -2,12 +2,14 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Webbingbrasil\FilamentAdvancedFilter\AdvancedFilter;
 use Filament\Forms\Components\TextInput;
+use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
-class NumberFilter extends AdvancedFilter
+class NumberFilter extends Filter
 {
+    use HasClauses;
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
@@ -34,16 +36,16 @@ class NumberFilter extends AdvancedFilter
         ];
     }
 
-    protected function applyFilter(Builder $query, string $column, array $data = []): Builder
+    protected function applyClause(Builder $query, string $column, string $clause, array $data = []): Builder
     {
-        $operator = match ($data['clause']) {
+        $operator = match ($clause) {
             static::CLAUSE_EQUAL, static::CLAUSE_NOT_SET => '=',
             static::CLAUSE_NOT_EQUAL, static::CLAUSE_SET => '!=',
             static::CLAUSE_GREATER_OR_EQUAL => '>=',
             static::CLAUSE_LESS_OR_EQUAL => '<=',
             static::CLAUSE_GREATER_THAN => '>',
             static::CLAUSE_LESS_THAN => '<',
-            default => $data['clause']
+            default => $clause
         };
 
         if ($operator === static::CLAUSE_BETWEEN) {
@@ -58,7 +60,7 @@ class NumberFilter extends AdvancedFilter
                 );
         }
 
-        $isSetClause = in_array($data['clause'], [static::CLAUSE_NOT_SET, static::CLAUSE_SET]);
+        $isSetClause = in_array($clause, [static::CLAUSE_NOT_SET, static::CLAUSE_SET]);
 
         return $query
             ->when(
