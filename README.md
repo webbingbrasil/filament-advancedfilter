@@ -1,7 +1,7 @@
 
 # Filament Advanced Filter
 
-Advanced filters for filament admin
+A collection of easy-to-use filters with clause conditions to [Filament](https://filamentphp.com)
 
 ## Installation
 
