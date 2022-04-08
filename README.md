@@ -1,6 +1,8 @@
 
 # Filament Advanced Filter
 
+![AdvancedFilters](./images/advancedfilters.png)
+
 A collection of easy-to-use filters with clause conditions to [Filament](https://filamentphp.com)
 
 ## Installation

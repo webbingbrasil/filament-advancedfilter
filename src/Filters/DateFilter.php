@@ -16,8 +16,8 @@ class DateFilter extends Filter
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
-    const CLAUSE_GREATER_OR_EQUAL = 'greater_equal';
-    const CLAUSE_LESS_OR_EQUAL = 'less_equal';
+    const CLAUSE_ON_AFTER = 'on_after';
+    const CLAUSE_ON_BEFORE = 'on_before';
     const CLAUSE_GREATER_THAN = 'greater_than';
     const CLAUSE_LESS_THAN = 'less_than';
     const CLAUSE_BETWEEN = 'between';
@@ -29,8 +29,8 @@ class DateFilter extends Filter
         return [
             static::CLAUSE_EQUAL => __('filament-advancedfilter::clauses.equal'),
             static::CLAUSE_NOT_EQUAL => __('filament-advancedfilter::clauses.not_equal'),
-            static::CLAUSE_GREATER_OR_EQUAL => __('filament-advancedfilter::clauses.greater_equal'),
-            static::CLAUSE_LESS_OR_EQUAL => __('filament-advancedfilter::clauses.less_equal'),
+            static::CLAUSE_ON_AFTER => __('filament-advancedfilter::clauses.on_after'),
+            static::CLAUSE_ON_BEFORE => __('filament-advancedfilter::clauses.on_before'),
             static::CLAUSE_GREATER_THAN => __('filament-advancedfilter::clauses.greater_than'),
             static::CLAUSE_LESS_THAN => __('filament-advancedfilter::clauses.less_than'),
             static::CLAUSE_BETWEEN => __('filament-advancedfilter::clauses.between'),
@@ -44,8 +44,8 @@ class DateFilter extends Filter
         $operator = match ($clause) {
             static::CLAUSE_EQUAL, static::CLAUSE_NOT_SET => '=',
             static::CLAUSE_NOT_EQUAL, static::CLAUSE_SET => '!=',
-            static::CLAUSE_GREATER_OR_EQUAL => '>=',
-            static::CLAUSE_LESS_OR_EQUAL => '<=',
+            static::CLAUSE_ON_AFTER => '>=',
+            static::CLAUSE_ON_BEFORE => '<=',
             static::CLAUSE_GREATER_THAN => '>',
             static::CLAUSE_LESS_THAN => '<',
             default => $clause
