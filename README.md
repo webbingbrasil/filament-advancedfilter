@@ -10,6 +10,12 @@ Install the package via composer (requires filament >= 2.10.40)
 composer require webbingbrasil/filament-advancedfilter
 ```
 
+Optionally you can publish the translation files
+
+```php 
+php artisan vendor:publish --tag="filament-advancedfilter-translations"
+```
+
 ## Available Filters
 
 ### BooleanFilter

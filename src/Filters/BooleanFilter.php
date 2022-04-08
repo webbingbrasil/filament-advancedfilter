@@ -21,11 +21,11 @@ class BooleanFilter extends Filter
     protected function clauses(): array
     {
         return [
-            static::CLAUSE_IS_TRUE => 'Is true',
-            static::CLAUSE_IS_FALSE => 'Is false',
+            static::CLAUSE_IS_TRUE => __('filament-advancedfilter::clauses.true'),
+            static::CLAUSE_IS_FALSE => __('filament-advancedfilter::clauses.false'),
         ] + ($this->showUnknowns && $this->nullsAre === null ? [
-            self::CLAUSE_SET => 'Is set',
-            self::CLAUSE_NOT_SET => 'Is not set',
+            self::CLAUSE_SET => __('filament-advancedfilter::clauses.set'),
+            self::CLAUSE_NOT_SET => __('filament-advancedfilter::clauses.not_set'),
         ] : []);
     }
 

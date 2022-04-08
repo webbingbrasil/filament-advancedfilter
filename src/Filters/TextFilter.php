@@ -25,16 +25,16 @@ class TextFilter extends Filter
     protected function clauses(): array
     {
         return [
-            static::CLAUSE_EQUAL => 'Is equal to',
-            static::CLAUSE_NOT_EQUAL => 'Is not equal to',
-            static::CLAUSE_START_WITH => 'Start with',
-            static::CLAUSE_NOT_START_WITH => 'Not start with',
-            static::CLAUSE_END_WITH => 'End with',
-            static::CLAUSE_NOT_END_WITH => 'Not end with',
-            static::CLAUSE_CONTAIN => 'Contain',
-            static::CLAUSE_NOT_CONTAIN => 'Not contain',
-            static::CLAUSE_SET => 'Is set',
-            static::CLAUSE_NOT_SET => 'Is not set',
+            static::CLAUSE_EQUAL => __('filament-advancedfilter::clauses.equal'),
+            static::CLAUSE_NOT_EQUAL => __('filament-advancedfilter::clauses.not_equal'),
+            static::CLAUSE_START_WITH => __('filament-advancedfilter::clauses.start_with'),
+            static::CLAUSE_NOT_START_WITH => __('filament-advancedfilter::clauses.not_start_with'),
+            static::CLAUSE_END_WITH => __('filament-advancedfilter::clauses.end_with'),
+            static::CLAUSE_NOT_END_WITH => __('filament-advancedfilter::clauses.not_end_with'),
+            static::CLAUSE_CONTAIN => __('filament-advancedfilter::clauses.contain'),
+            static::CLAUSE_NOT_CONTAIN => __('filament-advancedfilter::clauses.not_contain'),
+            static::CLAUSE_SET => __('filament-advancedfilter::clauses.set'),
+            static::CLAUSE_NOT_SET => __('filament-advancedfilter::clauses.not_set'),
         ];
     }
 
@@ -65,7 +65,7 @@ class TextFilter extends Filter
                 ->hidden(fn($get) => in_array(
                         $get('clause'),
                         [self::CLAUSE_NOT_SET, self::CLAUSE_SET]
-                    ) || !empty($get('clause')))
+                    ) || empty($get('clause')))
                 ->disableLabel(),
         ];
     }

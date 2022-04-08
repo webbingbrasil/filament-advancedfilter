@@ -24,15 +24,15 @@ class NumberFilter extends Filter
     protected function clauses(): array
     {
         return [
-            static::CLAUSE_EQUAL => 'Is equal to',
-            static::CLAUSE_NOT_EQUAL => 'Is not equal to',
-            static::CLAUSE_GREATER_OR_EQUAL => 'Is greater than or equal to',
-            static::CLAUSE_LESS_OR_EQUAL => 'Is less than or equal to',
-            static::CLAUSE_GREATER_THAN => 'Is greater than',
-            static::CLAUSE_LESS_THAN => 'Is less than',
-            static::CLAUSE_BETWEEN => 'Is between',
-            static::CLAUSE_SET => 'Is set',
-            static::CLAUSE_NOT_SET => 'Is not set',
+            static::CLAUSE_EQUAL => __('filament-advancedfilter::clauses.equal'),
+            static::CLAUSE_NOT_EQUAL => __('filament-advancedfilter::clauses.not_equal'),
+            static::CLAUSE_GREATER_OR_EQUAL => __('filament-advancedfilter::clauses.greater_equal'),
+            static::CLAUSE_LESS_OR_EQUAL => __('filament-advancedfilter::clauses.less_equal'),
+            static::CLAUSE_GREATER_THAN => __('filament-advancedfilter::clauses.greater_than'),
+            static::CLAUSE_LESS_THAN => __('filament-advancedfilter::clauses.less_than'),
+            static::CLAUSE_BETWEEN => __('filament-advancedfilter::clauses.between'),
+            static::CLAUSE_SET => __('filament-advancedfilter::clauses.set'),
+            static::CLAUSE_NOT_SET => __('filament-advancedfilter::clauses.not_set'),
         ];
     }
 
