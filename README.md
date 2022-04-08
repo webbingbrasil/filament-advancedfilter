@@ -48,7 +48,7 @@ use Webbingbrasil\FilamentAdvancedFilter\Filters\DateFilter;
 DateFilter::make('published_at')
 ```
 
-This filter allows user to search records in some conditions:
+This filter allows users to search records in the following conditions:
 
 - Is equal/not equal to user's input
 - Is on or after/before user's input
@@ -75,7 +75,7 @@ use Webbingbrasil\FilamentAdvancedFilter\Filters\NumberFilter;
 NumberFilter::make('quantity')
 ```
 
-This filter allows user to search records in some conditions:
+This filter allows users to search records in the following conditions:
 
 - Is equal/not equal to user's input
 - Is on or after/before user's input
@@ -93,7 +93,7 @@ use Webbingbrasil\FilamentAdvancedFilter\Filters\NumberFilter;
 TextFilter::make('name')
 ```
 
-This filter allows the user to search for the following conditions:
+This filter allows users to search records in the following conditions:
 
 - Is equal/not equal to user's input
 - Starts/not starts with user's input
