@@ -32,18 +32,18 @@ BooleanFilter::make('is_active')
 
 In some cases you can have a `nullable` column, the BooleanFilter can handle nulls in different ways:
 
-- Hide nulls
-- Show nulls
+- Treats nulls as Unknown
 - Treats nulls as True
 - Treats nulls as False
 
-By default `nulls` are hidden
+by default `nulls` are treated as unknown and hidden
 
 ```php
-BooleanFilter::make('is_active'')->showNulls();
-BooleanFilter::make('is_active'')->hideNulls();
+BooleanFilter::make('is_active'')->nullsAreUnknown();
 BooleanFilter::make('is_active'')->nullsAreTrue();
 BooleanFilter::make('is_active'')->nullsAreFalse();
+BooleanFilter::make('is_active'')->showUnknowns();
+BooleanFilter::make('is_active'')->hideUnknowns();
 ```
 
 ### DateFilter
