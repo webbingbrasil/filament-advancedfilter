@@ -22,6 +22,24 @@ class TextFilter extends Filter
     const CLAUSE_SET = 'set';
     const CLAUSE_NOT_SET = 'not_set';
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->indicateUsing(function (array $state): array {
+            ray($state);
+            if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
+                return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
+            }
+
+            if ($state['clause'] && $state['value']) {
+                return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' "' . $state['value'] . '"'];
+            }
+
+            return [];
+        });
+    }
+
     protected function clauses(): array
     {
         return [
@@ -62,10 +80,10 @@ class TextFilter extends Filter
     {
         return [
             TextInput::make('value')
-                ->hidden(fn($get) => in_array(
-                        $get('clause'),
-                        [self::CLAUSE_NOT_SET, self::CLAUSE_SET]
-                    ) || empty($get('clause')))
+                ->hidden(fn ($get) => in_array(
+                    $get('clause'),
+                    [self::CLAUSE_NOT_SET, self::CLAUSE_SET]
+                ) || empty($get('clause')))
                 ->disableLabel(),
         ];
     }
