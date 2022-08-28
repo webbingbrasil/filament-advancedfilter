@@ -27,7 +27,6 @@ class TextFilter extends Filter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            ray($state);
             if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                 return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
             }
