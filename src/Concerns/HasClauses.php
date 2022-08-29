@@ -41,7 +41,7 @@ trait HasClauses
 
         if ($this->queriesRelationships()) {
             return $query->whereHas($this->getRelationshipName(), function ($query) use ($clause, $data) {
-                $this->applyClause($query, $this->getRelationshipKey(), $clause, $data);
+                $this->applyClause($query, $this->getColumn(), $clause, $data);
             });
         }
 
