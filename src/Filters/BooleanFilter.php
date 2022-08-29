@@ -18,6 +18,17 @@ class BooleanFilter extends Filter
     protected bool $showUnknowns = false;
     protected ?bool $nullsAre = null;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->indicateUsing(function (array $state): array {
+            return isset($state['clause'])
+                ? [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]]
+                : [];
+        });
+    }
+
     protected function clauses(): array
     {
         return [
@@ -43,7 +54,8 @@ class BooleanFilter extends Filter
         };
 
         if ($this->nullsAre !== null && $this->nullsAre === $value) {
-            return $query->where(fn (Builder $query) =>
+            return $query->where(
+                fn (Builder $query) =>
                 $query->where($column, $operator, $value)->orWhereNull($column)
             );
         }

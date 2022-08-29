@@ -24,6 +24,36 @@ class DateFilter extends Filter
     const CLAUSE_SET = 'set';
     const CLAUSE_NOT_SET = 'not_set';
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->indicateUsing(function (array $state): array {
+            if (isset($state['clause'])) {
+                $message = $this->getLabel() . ' ' . $this->clauses()[$state['clause']];
+
+                if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
+                    return [$message];
+                }
+                if ($state['value']) {
+                    if ($state['clause'] === self::CLAUSE_GREATER_THAN || $state['clause'] === self::CLAUSE_LESS_THAN) {
+                        return [$message . ' ' . $state['value']. ' ' . $state['period'] . ' ' . $state['direction']];
+                    }
+
+                    return [$message . ' ' . Carbon::parse($state['value'])->format(config('tables.date_format', 'Y-m-d'))];
+                }
+                if ($state['from'] || $state['until']) {
+                    return [$message . ' ' .
+                        ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) . ' and ' .
+                        ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
+                    ];
+                }
+            }
+
+            return [];
+        });
+    }
+
     protected function clauses(): array
     {
         return [
@@ -73,11 +103,11 @@ class DateFilter extends Filter
         return $query
             ->when(
                 $isSetClause,
-                fn(Builder $query) => $query->where($column, $operator, null)
+                fn (Builder $query) => $query->where($column, $operator, null)
             )
             ->when(
                 !empty($value) && !$isSetClause,
-                fn(Builder $query) => $query->where($column, $operator, $value)
+                fn (Builder $query) => $query->where($column, $operator, $value)
             );
     }
 

@@ -21,6 +21,27 @@ class NumberFilter extends Filter
     const CLAUSE_SET = 'set';
     const CLAUSE_NOT_SET = 'not_set';
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->indicateUsing(function (array $state): array {
+            if (isset($state['clause'])) {
+                if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
+                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
+                }
+                if ($state['value']) {
+                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . $state['value']];
+                }
+                if ($state['from'] || $state['until']) {
+                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) . ' and ' . ($state['until'] ?? "~")];
+                }
+            }
+
+            return [];
+        });
+    }
+
     protected function clauses(): array
     {
         return [
@@ -65,11 +86,11 @@ class NumberFilter extends Filter
         return $query
             ->when(
                 $isSetClause,
-                fn(Builder $query) => $query->where($column, $operator, null)
+                fn (Builder $query) => $query->where($column, $operator, null)
             )
             ->when(
                 !empty($data['value']) && !$isSetClause,
-                fn(Builder $query) => $query->where($column, $operator, $data['value'])
+                fn (Builder $query) => $query->where($column, $operator, $data['value'])
             );
     }
 
