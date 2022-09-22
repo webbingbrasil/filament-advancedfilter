@@ -12,18 +12,31 @@ trait HasClauses
 {
     use HasRelationship;
 
-    protected string | Closure | null $column = null;
+    protected string | Closure | null $attribute = null;
 
+    /** @deprecated use `->attribute()` on the filter instead */
     public function column(string | Closure | null $name): static
     {
-        $this->column = $name;
+        return $this->attribute($name);
+    }
+
+    public function attribute(string | Closure | null $name): static
+    {
+        $this->attribute = $name;
 
         return $this;
     }
 
+    /** @deprecated use `->getAttribute()` instead */
     public function getColumn(): string
     {
-        return $this->evaluate($this->column) ?? $this->getName();
+        return $this->getAttribute();
+    }
+
+
+    public function getAttribute(): string
+    {
+        return $this->evaluate($this->attribute) ?? $this->getName();
     }
 
     public function apply(Builder $query, array $data = []): Builder
@@ -45,7 +58,7 @@ trait HasClauses
             });
         }
 
-        return $this->applyClause($query, $this->getColumn(), $clause, $data);
+        return $this->applyClause($query, $this->getAttribute(), $clause, $data);
     }
 
     public function getFormSchema(): array
