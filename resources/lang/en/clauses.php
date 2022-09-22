@@ -11,7 +11,7 @@ return [
     'on_before' => 'Is on or before',
     'greater_equal' => 'Is greater than or equal to',
     'less_equal' => 'Is less than or equal to',
-    'greater_than' => 'Is more than',
+    'greater_than' => 'Is greater than',
     'less_than' => 'Is less than',
     'between' => 'Is between',
     'start_with' => 'Starts with',
