@@ -64,6 +64,10 @@ class TextFilter extends Filter
             default => '='
         };
 
+        if (!in_array($clause, [static::CLAUSE_SET, static::CLAUSE_NOT_SET]) && blank($data['value'])) {
+            return $query;
+        }
+
         $value = match ($clause) {
             self::CLAUSE_NOT_SET, self::CLAUSE_SET => null,
             self::CLAUSE_NOT_START_WITH, self::CLAUSE_START_WITH => $data['value'] . '%',
