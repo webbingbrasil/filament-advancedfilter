@@ -97,4 +97,12 @@ class BooleanFilter extends Filter
 
         return $this;
     }
+    
+    
+       public function getAttribute(): string
+    {
+        return $this->evaluate($this->attribute) ?? $this->getName();
+    }
+    
+    
 }
