@@ -176,4 +176,12 @@ class DateFilter extends Filter
                 ])),
         ];
     }
+    
+    
+     public function getAttribute(): string
+    {
+        return $this->evaluate($this->attribute) ?? $this->getName();
+    }
+    
+    
 }
