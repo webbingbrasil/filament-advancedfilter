@@ -10,6 +10,8 @@ use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 class NumberFilter extends Filter
 {
     use HasClauses;
+    
+      protected string | Closure | null $attribute = null;
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
