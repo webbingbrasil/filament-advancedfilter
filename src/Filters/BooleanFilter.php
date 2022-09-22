@@ -17,6 +17,8 @@ class BooleanFilter extends Filter
 
     protected bool $showUnknowns = false;
     protected ?bool $nullsAre = null;
+    
+     protected string | Closure | null $attribute = null;
 
     protected function setUp(): void
     {
