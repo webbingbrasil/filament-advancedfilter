@@ -115,4 +115,11 @@ class NumberFilter extends Filter
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
         ];
     }
+    
+    
+       public function getAttribute(): string
+    {
+        return $this->evaluate($this->attribute) ?? $this->getName();
+    }
+    
 }
