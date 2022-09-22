@@ -10,8 +10,6 @@ use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 class TextFilter extends Filter
 {
     use HasClauses;
-    
-     protected string | Closure | null $attribute = null;
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
@@ -88,13 +86,4 @@ class TextFilter extends Filter
                 ->disableLabel(),
         ];
     }
-    
-    
-    
-    public function getAttribute(): string
-    {
-        return $this->evaluate($this->attribute) ?? $this->getName();
-    }
-    
-    
 }

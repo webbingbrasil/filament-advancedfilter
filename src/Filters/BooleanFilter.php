@@ -17,8 +17,6 @@ class BooleanFilter extends Filter
 
     protected bool $showUnknowns = false;
     protected ?bool $nullsAre = null;
-    
-     protected string | Closure | null $attribute = null;
 
     protected function setUp(): void
     {
@@ -99,12 +97,4 @@ class BooleanFilter extends Filter
 
         return $this;
     }
-    
-    
-       public function getAttribute(): string
-    {
-        return $this->evaluate($this->attribute) ?? $this->getName();
-    }
-    
-    
 }

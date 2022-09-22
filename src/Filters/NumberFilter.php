@@ -10,8 +10,6 @@ use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 class NumberFilter extends Filter
 {
     use HasClauses;
-    
-      protected string | Closure | null $attribute = null;
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
@@ -117,11 +115,4 @@ class NumberFilter extends Filter
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
         ];
     }
-    
-    
-       public function getAttribute(): string
-    {
-        return $this->evaluate($this->attribute) ?? $this->getName();
-    }
-    
 }

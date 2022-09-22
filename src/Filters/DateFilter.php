@@ -13,7 +13,6 @@ use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 class DateFilter extends Filter
 {
     use HasClauses;
-    protected string | Closure | null $attribute = null;
 
     const CLAUSE_EQUAL = 'equal';
     const CLAUSE_NOT_EQUAL = 'not_equal';
@@ -177,12 +176,4 @@ class DateFilter extends Filter
                 ])),
         ];
     }
-    
-    
-     public function getAttribute(): string
-    {
-        return $this->evaluate($this->attribute) ?? $this->getName();
-    }
-    
-    
 }
