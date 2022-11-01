@@ -29,7 +29,7 @@ class DateFilter extends Filter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            if (isset($state['clause'])) {
+            if (isset($state['clause']) && !empty($state['clause'])) {
                 $message = $this->getLabel() . ' ' . $this->clauses()[$state['clause']];
 
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
