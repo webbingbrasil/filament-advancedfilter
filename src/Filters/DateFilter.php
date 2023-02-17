@@ -35,8 +35,10 @@ class DateFilter extends Filter
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                     return [$message];
                 }
-                if ($state['period_value']
-                    && ($state['clause'] === self::CLAUSE_GREATER_THAN || $state['clause'] === self::CLAUSE_LESS_THAN)) {
+                if (
+                    $state['period_value']
+                    && ($state['clause'] === self::CLAUSE_GREATER_THAN || $state['clause'] === self::CLAUSE_LESS_THAN)
+                ) {
                     return [$message . ' ' . $state['period_value'] . ' ' . $state['period'] . ' ' . $state['direction']];
                 }
 
@@ -44,9 +46,10 @@ class DateFilter extends Filter
                     return [$message . ' ' . Carbon::parse($state['value'])->format(config('tables.date_format', 'Y-m-d'))];
                 }
                 if ($state['from'] || $state['until']) {
-                    return [$message . ' ' .
-                        ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) . ' and ' .
-                        ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
+                    return [
+                        $message . ' ' .
+                            ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) . ' and ' .
+                            ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
                     ];
                 }
             }
@@ -86,11 +89,11 @@ class DateFilter extends Filter
             return $query
                 ->when(
                     $data['from'],
-                    fn(Builder $query, $date): Builder => $query->whereDate($column, '>=', $date),
+                    fn (Builder $query, $date): Builder => $query->whereDate($column, '>=', $date),
                 )
                 ->when(
                     $data['until'],
-                    fn(Builder $query, $date): Builder => $query->whereDate($column, '<=', $date),
+                    fn (Builder $query, $date): Builder => $query->whereDate($column, '<=', $date),
                 );
         }
 
@@ -104,11 +107,11 @@ class DateFilter extends Filter
         return $query
             ->when(
                 $isSetClause,
-                fn(Builder $query) => $query->where($column, $operator, null)
+                fn (Builder $query) => $query->where($column, $operator, null)
             )
             ->when(
                 !empty($value) && !$isSetClause,
-                fn(Builder $query) => $query->where($column, $operator, $value)
+                fn (Builder $query) => $query->where($column, $operator, $value)
             );
     }
 
@@ -130,7 +133,7 @@ class DateFilter extends Filter
         return [
             DatePicker::make('value')
                 ->disableLabel()
-                ->when(fn($get) => !in_array($get('clause'), [
+                ->when(fn ($get) => !in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                     static::CLAUSE_BETWEEN,
@@ -139,40 +142,42 @@ class DateFilter extends Filter
                     null
                 ])),
             DatePicker::make('from')
-                ->when(fn($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->label(__('filament-advancedfilter::clauses.from'))
+                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             DatePicker::make('until')
-                ->when(fn($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                - label(__('filament-advancedfilter::clauses.until'))
+                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
                 ->minValue(0)
                 ->disableLabel()
                 ->placeholder('0')
-                ->when(fn($get) => in_array($get('clause'), [
+                ->when(fn ($get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
             Select::make('period')
                 ->options([
-                    'days' => 'days',
-                    'weeks' => 'weeks',
-                    'months' => 'months',
-                    'years' => 'years',
+                    'days' => __('filament-advancedfilter::clauses.days'),
+                    'weeks' => __('filament-advancedfilter::clauses.weeks'),
+                    'months' => __('filament-advancedfilter::clauses.months'),
+                    'years' => __('filament-advancedfilter::clauses.years'),
                 ])
                 ->disableLabel()
                 ->default('days')
                 ->disablePlaceholderSelection()
-                ->when(fn($get) => in_array($get('clause'), [
+                ->when(fn ($get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
             Select::make('direction')
                 ->options([
-                    null => 'from now',
-                    'ago' => 'ago'
+                    null => __('filament-advancedfilter::clauses.from_now'),
+                    'ago' => __('filament-advancedfilter::clauses.ago')
                 ])
                 ->disableLabel()
                 ->disablePlaceholderSelection()
-                ->when(fn($get) => in_array($get('clause'), [
+                ->when(fn ($get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
