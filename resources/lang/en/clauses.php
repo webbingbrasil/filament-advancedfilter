@@ -20,4 +20,13 @@ return [
     'not_end_with' => 'Does not end with',
     'contain' => 'Contains',
     'not_contain' => 'Does not contain',
+
+    'from' => 'From',
+    'until' => 'Until',
+    'days' => 'Days',
+    'weeks' => 'Weeks',
+    'months' => 'Months',
+    'years' => 'Years',
+    'from_now' => 'From now',
+    'ago' => 'Ago',
 ];
