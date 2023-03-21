@@ -145,7 +145,7 @@ class DateFilter extends Filter
                 ->label(__('filament-advancedfilter::clauses.from'))
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             DatePicker::make('until')
-                - label(__('filament-advancedfilter::clauses.until'))
+                ->label(__('filament-advancedfilter::clauses.until'))
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
