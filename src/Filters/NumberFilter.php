@@ -108,7 +108,7 @@ class NumberFilter extends Filter
                     null
                 ])),
             TextInput::make('from')
-                - label(__('filament-advancedfilter::clauses.from'))
+                ->label(__('filament-advancedfilter::clauses.from'))
                 ->type('number')
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('until')
