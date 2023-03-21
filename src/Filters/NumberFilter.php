@@ -112,7 +112,7 @@ class NumberFilter extends Filter
                 ->type('number')
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('until')
-                - label(__('filament-advancedfilter::clauses.until'))
+                ->label(__('filament-advancedfilter::clauses.until'))
                 ->type('number')
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
         ];
