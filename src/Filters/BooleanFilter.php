@@ -23,7 +23,7 @@ class BooleanFilter extends Filter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            return isset($state['clause'])
+            return isset($state['clause']) && !empty($state['clause'])
                 ? [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]]
                 : [];
         });
