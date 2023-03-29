@@ -2,11 +2,11 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
-use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
-class BooleanFilter extends Filter
+class BooleanFilter extends BaseFilter
 {
     use HasClauses;
 

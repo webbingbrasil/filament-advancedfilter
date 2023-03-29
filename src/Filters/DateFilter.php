@@ -3,14 +3,14 @@
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
 use Carbon\Carbon;
-use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
-class DateFilter extends Filter
+class DateFilter extends BaseFilter
 {
     use HasClauses;
 
@@ -149,6 +149,7 @@ class DateFilter extends Filter
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
+                ->debounce($this->debounce)
                 ->minValue(0)
                 ->disableLabel()
                 ->placeholder('0')

@@ -109,6 +109,59 @@ This filter allows users to search records in the following conditions:
 - Contains/not contains user's input
 - Is set/not set
 
+## Set Default Clause
+
+You can set a default clause condition for any filter, for example:
+
+```php
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
+use Webbingbrasil\FilamentAdvancedFilter\Filters\BooleanFilter;
+
+FilamentAdvancedFilter\Filters\TextFilter::make('brand')
+    ->relationship('brand', 'name')
+    ->default(FilamentAdvancedFilter\Filters\TextFilter::CLAUSE_CONTAIN);
+    
+FilamentAdvancedFilter\Filters\BooleanFilter::make('is_visible')
+    ->default(FilamentAdvancedFilter\Filters\BooleanFilter::CLAUSE_IS_FALSE);
+```
+
+## Enable Clause Label
+
+By default the clause label is disabled, you can enable it by calling the `enableClauseLabel` method:
+
+```php
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
+
+FilamentAdvancedFilter\Filters\TextFilter::make('brand')
+    ->enableClauseLabel()
+```
+
+## Fields Wrapper
+
+You can change the wrapper for the filter fields, for example to use a Group component instead of Fieldset:
+
+```php
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
+
+FilamentAdvancedFilter\Filters\TextFilter::make('brand')
+    ->enableClauseLabel()
+    ->wrapperUsing(fn () => Forms\Components\Group::make())
+```
+
+## Field Debounce
+
+You can set a custom debounce time for the filter fields, for example to wait 700ms before applying the filter:
+
+```php
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
+
+FilamentAdvancedFilter\Filters\TextFilter::make('brand')
+    ->debounce(700)
+```
+
+By default the debounce time is 500ms.
+
+
 ## Credits
 
 -   [Danilo Andrade](https://github.com/dmandrade)
