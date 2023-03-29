@@ -29,7 +29,7 @@ class BooleanFilter extends Filter
         });
     }
 
-    protected function clauses(): array
+    public function clauses(): array
     {
         return [
             static::CLAUSE_IS_TRUE => __('filament-advancedfilter::clauses.true'),

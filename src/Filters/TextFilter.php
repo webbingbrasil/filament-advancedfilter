@@ -39,7 +39,7 @@ class TextFilter extends Filter
         });
     }
 
-    protected function clauses(): array
+    public function clauses(): array
     {
         return [
             static::CLAUSE_EQUAL => __('filament-advancedfilter::clauses.equal'),
@@ -79,7 +79,7 @@ class TextFilter extends Filter
         return $query->where($column, $operator, $value);
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             TextInput::make('value')

@@ -106,12 +106,12 @@ trait HasClauses
         return $this->getWrapper() ?? Fieldset::make($this->getLabel())->columns(1);
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [];
     }
 
-    abstract protected function clauses(): array;
+    abstract public function clauses(): array;
 
     abstract protected function applyClause(Builder $query, string $column, string $clause, array $data = []): Builder;
 
