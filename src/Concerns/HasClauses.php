@@ -19,6 +19,8 @@ trait HasClauses
 
     protected bool | Closure  $enableClauseLabel = false;
 
+    protected int $debounce = 500;
+
     /** @deprecated use `->attribute()` on the filter instead */
     public function column(string | Closure | null $name): static
     {
@@ -28,6 +30,13 @@ trait HasClauses
     public function attribute(string | Closure | null $name): static
     {
         $this->attribute = $name;
+
+        return $this;
+    }
+
+    public function debounce(int $debounce): static
+    {
+        $this->debounce = $debounce;
 
         return $this;
     }
@@ -45,6 +54,10 @@ trait HasClauses
 
     public function apply(Builder $query, array $data = []): Builder
     {
+        if ($this->isHidden()) {
+            return $query;
+        }
+
         if ($this->hasQueryModificationCallback()) {
             return parent::apply($query, $data);
         }

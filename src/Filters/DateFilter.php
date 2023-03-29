@@ -149,6 +149,7 @@ class DateFilter extends BaseFilter
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
+                ->debounce($this->debounce)
                 ->minValue(0)
                 ->disableLabel()
                 ->placeholder('0')

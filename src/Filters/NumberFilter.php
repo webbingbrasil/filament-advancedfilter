@@ -99,6 +99,7 @@ class NumberFilter extends BaseFilter
         return [
             TextInput::make('value')
                 ->type('number')
+                ->debounce($this->debounce)
                 ->disableLabel()
                 ->placeholder('0')
                 ->when(fn ($get) => !in_array($get('clause'), [
@@ -110,10 +111,12 @@ class NumberFilter extends BaseFilter
             TextInput::make('from')
                 ->label(__('filament-advancedfilter::clauses.from'))
                 ->type('number')
+                ->debounce($this->debounce)
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('until')
                 ->label(__('filament-advancedfilter::clauses.until'))
                 ->type('number')
+                ->debounce($this->debounce)
                 ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
         ];
     }

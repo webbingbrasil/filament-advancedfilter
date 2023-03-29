@@ -83,6 +83,7 @@ class TextFilter extends BaseFilter
     {
         return [
             TextInput::make('value')
+                ->debounce($this->debounce)
                 ->hidden(fn ($get) => in_array(
                     $get('clause'),
                     [self::CLAUSE_NOT_SET, self::CLAUSE_SET]
