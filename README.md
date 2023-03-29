@@ -39,11 +39,11 @@ In some cases you can have a `nullable` column, the BooleanFilter can handle nul
 by default `nulls` are treated as unknown and hidden
 
 ```php
-BooleanFilter::make('is_active'')->nullsAreUnknown();
-BooleanFilter::make('is_active'')->nullsAreTrue();
-BooleanFilter::make('is_active'')->nullsAreFalse();
-BooleanFilter::make('is_active'')->showUnknowns();
-BooleanFilter::make('is_active'')->hideUnknowns();
+BooleanFilter::make('is_active')->nullsAreUnknown();
+BooleanFilter::make('is_active')->nullsAreTrue();
+BooleanFilter::make('is_active')->nullsAreFalse();
+BooleanFilter::make('is_active')->showUnknowns();
+BooleanFilter::make('is_active')->hideUnknowns();
 ```
 
 ### DateFilter
