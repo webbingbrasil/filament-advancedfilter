@@ -2,6 +2,7 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Concerns;
 
+use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\Concerns\HasRelationship;
@@ -13,6 +14,10 @@ trait HasClauses
     use HasRelationship;
 
     protected string | Closure | null $attribute = null;
+
+    protected string | Closure | null $wrapperUsing = null;
+
+    protected bool $disableClauseLabel = true;
 
     /** @deprecated use `->attribute()` on the filter instead */
     public function column(string | Closure | null $name): static
@@ -63,15 +68,42 @@ trait HasClauses
 
     public function getFormSchema(): array
     {
+        $clause = Select::make('clause')
+            ->label($this->getLabel())
+            ->options($this->clauses());
+
+        if ($this->disableClauseLabel) {
+            $clause->disableLabel();
+        }
+
         return $this->evaluate($this->formSchema) ?? [
-                Fieldset::make($this->getLabel())
-                    ->columns(1)
-                    ->schema(array_merge([
-                        Select::make('clause')
-                            ->disableLabel()
-                            ->options($this->clauses()),
-                    ], $this->fields()))
+                $this->getWrapperComponent()
+                    ->schema(array_merge([$clause], $this->fields()))
             ];
+    }
+
+    public function enableClauseLabel(): static
+    {
+        $this->disableClauseLabel = false;
+
+        return $this;
+    }
+
+    public function wrapperUsing(?Closure $callback): static
+    {
+        $this->wrapperUsing = $callback;
+
+        return $this;
+    }
+
+    public function getWrapper(): ?Component
+    {
+        return $this->evaluate($this->wrapperUsing);
+    }
+
+    protected function getWrapperComponent()
+    {
+        return $this->getWrapper() ?? Fieldset::make($this->getLabel())->columns(1);
     }
 
     public function fields(): array
