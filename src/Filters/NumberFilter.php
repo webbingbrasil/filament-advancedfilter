@@ -2,12 +2,12 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
-use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\TextInput;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
-class NumberFilter extends Filter
+class NumberFilter extends BaseFilter
 {
     use HasClauses;
 
