@@ -42,7 +42,7 @@ class NumberFilter extends Filter
         });
     }
 
-    protected function clauses(): array
+    public function clauses(): array
     {
         return [
             static::CLAUSE_EQUAL => __('filament-advancedfilter::clauses.equal'),
@@ -94,7 +94,7 @@ class NumberFilter extends Filter
             );
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             TextInput::make('value')

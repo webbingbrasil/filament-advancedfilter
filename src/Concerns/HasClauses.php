@@ -74,12 +74,12 @@ trait HasClauses
             ];
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [];
     }
 
-    abstract protected function clauses(): array;
+    abstract public function clauses(): array;
 
     abstract protected function applyClause(Builder $query, string $column, string $clause, array $data = []): Builder;
 
