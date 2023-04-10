@@ -96,7 +96,7 @@ This filter allows users to search records in the following conditions:
 Filter records by text column: 
 
 ```php
-use Webbingbrasil\FilamentAdvancedFilter\Filters\NumberFilter;
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
 
 TextFilter::make('name')
 ```
