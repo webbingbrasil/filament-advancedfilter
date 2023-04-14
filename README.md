@@ -164,7 +164,8 @@ By default the debounce time is 500ms.
 
 ## Credits
 
--   [Danilo Andrade](https://github.com/dmandrade)
+- [Danilo Andrade](https://github.com/dmandrade)
+- [All Contributors](https://github.com/webbingbrasil/filament-advancedfilter/contributors)
 
 ## License
 
