@@ -30,11 +30,11 @@ class NumberFilter extends BaseFilter
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
                 }
+                if ($state['clause'] === self::CLAUSE_BETWEEN) {
+                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) . ' and ' . ($state['until'] ?? "~")];
+                }
                 if ($state['value']) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . $state['value']];
-                }
-                if ($state['from'] || $state['until']) {
-                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) . ' and ' . ($state['until'] ?? "~")];
                 }
             }
 
