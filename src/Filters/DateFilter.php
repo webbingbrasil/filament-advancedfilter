@@ -42,15 +42,15 @@ class DateFilter extends BaseFilter
                     return [$message . ' ' . $state['period_value'] . ' ' . $state['period'] . ' ' . $state['direction']];
                 }
 
-                if ($state['value']) {
-                    return [$message . ' ' . Carbon::parse($state['value'])->format(config('tables.date_format', 'Y-m-d'))];
-                }
-                if ($state['from'] || $state['until']) {
+                if ($state['clause'] === self::CLAUSE_BETWEEN) {
                     return [
                         $message . ' ' .
-                            ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) . ' and ' .
-                            ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
+                        ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) . ' and ' .
+                        ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
                     ];
+                }
+                if ($state['value']) {
+                    return [$message . ' ' . Carbon::parse($state['value'])->format(config('tables.date_format', 'Y-m-d'))];
                 }
             }
 
