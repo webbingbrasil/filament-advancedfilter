@@ -133,7 +133,7 @@ class DateFilter extends BaseFilter
     {
         return [
             DatePicker::make('value')
-                ->disableLabel()
+                ->hiddenLabel()
                 ->visible(fn (Get $get) => !in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
@@ -152,7 +152,7 @@ class DateFilter extends BaseFilter
                 ->type('number')
                 ->debounce($this->debounce)
                 ->minValue(0)
-                ->disableLabel()
+                ->hiddenLabel()
                 ->placeholder('0')
                 ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
@@ -165,9 +165,9 @@ class DateFilter extends BaseFilter
                     'months' => __('filament-advancedfilter::clauses.months'),
                     'years' => __('filament-advancedfilter::clauses.years'),
                 ])
-                ->disableLabel()
+                ->hiddenLabel()
                 ->default('days')
-                ->disablePlaceholderSelection()
+                ->selectablePlaceholder(false)
                 ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
@@ -177,8 +177,8 @@ class DateFilter extends BaseFilter
                     null => __('filament-advancedfilter::clauses.from_now'),
                     'ago' => __('filament-advancedfilter::clauses.ago')
                 ])
-                ->disableLabel()
-                ->disablePlaceholderSelection()
+                ->hiddenLabel()
+                ->selectablePlaceholder(false)
                 ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,

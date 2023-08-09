@@ -101,7 +101,7 @@ class NumberFilter extends BaseFilter
             TextInput::make('value')
                 ->type('number')
                 ->debounce($this->debounce)
-                ->disableLabel()
+                ->hiddenLabel()
                 ->placeholder('0')
                 ->visible(fn (Get $get) => !in_array($get('clause'), [
                     static::CLAUSE_BETWEEN,
