@@ -3,11 +3,12 @@
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
 use Carbon\Carbon;
-use Filament\Tables\Filters\BaseFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Get;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\BaseFilter;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class DateFilter extends BaseFilter
@@ -133,7 +134,7 @@ class DateFilter extends BaseFilter
         return [
             DatePicker::make('value')
                 ->disableLabel()
-                ->when(fn ($get) => !in_array($get('clause'), [
+                ->when(fn (Get $get) => !in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                     static::CLAUSE_BETWEEN,
@@ -143,17 +144,17 @@ class DateFilter extends BaseFilter
                 ])),
             DatePicker::make('from')
                 ->label(__('filament-advancedfilter::clauses.from'))
-                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->when(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             DatePicker::make('until')
                 ->label(__('filament-advancedfilter::clauses.until'))
-                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->when(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
                 ->debounce($this->debounce)
                 ->minValue(0)
                 ->disableLabel()
                 ->placeholder('0')
-                ->when(fn ($get) => in_array($get('clause'), [
+                ->when(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
@@ -167,7 +168,7 @@ class DateFilter extends BaseFilter
                 ->disableLabel()
                 ->default('days')
                 ->disablePlaceholderSelection()
-                ->when(fn ($get) => in_array($get('clause'), [
+                ->when(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
@@ -178,7 +179,7 @@ class DateFilter extends BaseFilter
                 ])
                 ->disableLabel()
                 ->disablePlaceholderSelection()
-                ->when(fn ($get) => in_array($get('clause'), [
+                ->when(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
