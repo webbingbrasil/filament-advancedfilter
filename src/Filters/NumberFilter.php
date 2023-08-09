@@ -2,9 +2,10 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
+use Filament\Forms\Get;
 use Filament\Tables\Filters\BaseFilter;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class NumberFilter extends BaseFilter
@@ -102,7 +103,7 @@ class NumberFilter extends BaseFilter
                 ->debounce($this->debounce)
                 ->disableLabel()
                 ->placeholder('0')
-                ->when(fn ($get) => !in_array($get('clause'), [
+                ->visible(fn (Get $get) => !in_array($get('clause'), [
                     static::CLAUSE_BETWEEN,
                     static::CLAUSE_NOT_SET,
                     static::CLAUSE_SET,
@@ -112,12 +113,12 @@ class NumberFilter extends BaseFilter
                 ->label(__('filament-advancedfilter::clauses.from'))
                 ->type('number')
                 ->debounce($this->debounce)
-                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->visible(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('until')
                 ->label(__('filament-advancedfilter::clauses.until'))
                 ->type('number')
                 ->debounce($this->debounce)
-                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->visible(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
         ];
     }
 }

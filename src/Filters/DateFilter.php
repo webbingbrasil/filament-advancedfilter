@@ -134,7 +134,7 @@ class DateFilter extends BaseFilter
         return [
             DatePicker::make('value')
                 ->disableLabel()
-                ->when(fn (Get $get) => !in_array($get('clause'), [
+                ->visible(fn (Get $get) => !in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                     static::CLAUSE_BETWEEN,
@@ -144,17 +144,17 @@ class DateFilter extends BaseFilter
                 ])),
             DatePicker::make('from')
                 ->label(__('filament-advancedfilter::clauses.from'))
-                ->when(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->visible(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             DatePicker::make('until')
                 ->label(__('filament-advancedfilter::clauses.until'))
-                ->when(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->visible(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
                 ->debounce($this->debounce)
                 ->minValue(0)
                 ->disableLabel()
                 ->placeholder('0')
-                ->when(fn (Get $get) => in_array($get('clause'), [
+                ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
@@ -168,7 +168,7 @@ class DateFilter extends BaseFilter
                 ->disableLabel()
                 ->default('days')
                 ->disablePlaceholderSelection()
-                ->when(fn (Get $get) => in_array($get('clause'), [
+                ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
@@ -179,7 +179,7 @@ class DateFilter extends BaseFilter
                 ])
                 ->disableLabel()
                 ->disablePlaceholderSelection()
-                ->when(fn (Get $get) => in_array($get('clause'), [
+                ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
