@@ -3,11 +3,12 @@
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
 use Carbon\Carbon;
-use Filament\Tables\Filters\BaseFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Get;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\BaseFilter;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class DateFilter extends BaseFilter
@@ -132,8 +133,8 @@ class DateFilter extends BaseFilter
     {
         return [
             DatePicker::make('value')
-                ->disableLabel()
-                ->when(fn ($get) => !in_array($get('clause'), [
+                ->hiddenLabel()
+                ->visible(fn (Get $get) => !in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                     static::CLAUSE_BETWEEN,
@@ -143,17 +144,17 @@ class DateFilter extends BaseFilter
                 ])),
             DatePicker::make('from')
                 ->label(__('filament-advancedfilter::clauses.from'))
-                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->visible(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             DatePicker::make('until')
                 ->label(__('filament-advancedfilter::clauses.until'))
-                ->when(fn ($get) => $get('clause') == static::CLAUSE_BETWEEN),
+                ->visible(fn (Get $get) => $get('clause') == static::CLAUSE_BETWEEN),
             TextInput::make('period_value')
                 ->type('number')
                 ->debounce($this->debounce)
                 ->minValue(0)
-                ->disableLabel()
+                ->hiddenLabel()
                 ->placeholder('0')
-                ->when(fn ($get) => in_array($get('clause'), [
+                ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
@@ -164,10 +165,10 @@ class DateFilter extends BaseFilter
                     'months' => __('filament-advancedfilter::clauses.months'),
                     'years' => __('filament-advancedfilter::clauses.years'),
                 ])
-                ->disableLabel()
+                ->hiddenLabel()
                 ->default('days')
-                ->disablePlaceholderSelection()
-                ->when(fn ($get) => in_array($get('clause'), [
+                ->selectablePlaceholder(false)
+                ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),
@@ -176,9 +177,9 @@ class DateFilter extends BaseFilter
                     null => __('filament-advancedfilter::clauses.from_now'),
                     'ago' => __('filament-advancedfilter::clauses.ago')
                 ])
-                ->disableLabel()
-                ->disablePlaceholderSelection()
-                ->when(fn ($get) => in_array($get('clause'), [
+                ->hiddenLabel()
+                ->selectablePlaceholder(false)
+                ->visible(fn (Get $get) => in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                 ])),

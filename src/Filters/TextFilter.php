@@ -2,9 +2,10 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
+use Filament\Forms\Get;
 use Filament\Tables\Filters\BaseFilter;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class TextFilter extends BaseFilter
@@ -84,11 +85,11 @@ class TextFilter extends BaseFilter
         return [
             TextInput::make('value')
                 ->debounce($this->debounce)
-                ->hidden(fn ($get) => in_array(
+                ->hidden(fn (Get $get) => in_array(
                     $get('clause'),
                     [self::CLAUSE_NOT_SET, self::CLAUSE_SET]
                 ) || empty($get('clause')))
-                ->disableLabel(),
+                ->hiddenLabel(),
         ];
     }
 }
