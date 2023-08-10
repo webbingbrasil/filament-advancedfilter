@@ -5,11 +5,14 @@
 
 A collection of easy-to-use filters with clause conditions to [Filament](https://filamentphp.com)
 
+> **Note**
+> For **Filament 3.x** use **[3.x](https://github.com/webbingbrasil/filament-advancedfilter/tree/3.x)** branch
+
 ## Installation
 
 Install the package via composer (requires filament >= 2.10.40)
 ```bash
-composer require webbingbrasil/filament-advancedfilter
+composer require webbingbrasil/filament-advancedfilter "^2.0"
 ```
 
 Optionally you can publish the translation files
