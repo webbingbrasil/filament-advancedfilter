@@ -33,7 +33,7 @@ class NumberFilter extends BaseFilter
                 if ($state['clause'] === self::CLAUSE_BETWEEN) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) . ' and ' . ($state['until'] ?? "~")];
                 }
-                if ($state['value']) {
+                if (!blank($state['value'])) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . $state['value']];
                 }
             }
