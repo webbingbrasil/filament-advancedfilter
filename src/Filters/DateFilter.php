@@ -46,7 +46,8 @@ class DateFilter extends BaseFilter
                 if ($state['clause'] === self::CLAUSE_BETWEEN) {
                     return [
                         $message . ' ' .
-                        ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) . ' and ' .
+                        ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) .
+                        ' ' . __('filament-advancedfilter::clauses.between_and') . ' ' .
                         ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
                     ];
                 }

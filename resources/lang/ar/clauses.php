@@ -29,4 +29,6 @@ return [
     'years' => 'سنوات',
     'from_now' => 'من الآن',
     'ago' => 'مضى',
+
+    'between_and' => 'و',
 ];

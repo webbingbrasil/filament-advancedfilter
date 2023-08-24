@@ -29,4 +29,6 @@ return [
     'years' => 'Tahun',
     'from_now' => 'Dari sekarang',
     'ago' => 'Yang lalu',
+
+    'between_and' => 'Dan',
 ];

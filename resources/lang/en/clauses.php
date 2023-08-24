@@ -29,4 +29,6 @@ return [
     'years' => 'Years',
     'from_now' => 'From now',
     'ago' => 'Ago',
+
+    'between_and' => 'and',
 ];
