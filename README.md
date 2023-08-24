@@ -1,7 +1,7 @@
 
 # Filament Advanced Filter
 
-![AdvancedFilters](./images/advancedfilters.png)
+![AdvancedFilters](https://raw.githubusercontent.com/webbingbrasil/filament-advancedfilter/3.x/images/advancedfilters.png)
 
 A collection of easy-to-use filters with clause conditions to [Filament](https://filamentphp.com)
 
