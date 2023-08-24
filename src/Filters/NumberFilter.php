@@ -32,7 +32,9 @@ class NumberFilter extends BaseFilter
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
                 }
                 if ($state['clause'] === self::CLAUSE_BETWEEN) {
-                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) . ' and ' . ($state['until'] ?? "~")];
+                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) .
+                    ' ' . __('filament-advancedfilter::clauses.between_and') . ' ' .
+                    ($state['until'] ?? "~")];
                 }
                 if ($state['value']) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . $state['value']];

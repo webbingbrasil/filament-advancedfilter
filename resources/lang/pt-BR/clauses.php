@@ -20,4 +20,6 @@ return [
     'not_end_with' => 'Não termina com',
     'contain' => 'Contém',
     'not_contain' => 'Não contém',
+
+    'between_and' => 'e',
 ];
