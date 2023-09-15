@@ -28,10 +28,18 @@ class TextFilter extends BaseFilter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
+            if (!isset($state['clause'])) {
+                return [];
+            }
+            
             if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                 return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
             }
 
+            if (!isset($state['value'])) {
+                return [];
+            }
+            
             if ($state['clause'] && $state['value']) {
                 return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' "' . $state['value'] . '"'];
             }
