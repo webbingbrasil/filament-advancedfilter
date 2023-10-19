@@ -21,5 +21,14 @@ return [
     'contain' => 'Contém',
     'not_contain' => 'Não contém',
 
+    'from' => 'De',
+    'until' => 'Até',
+    'days' => 'Dias',
+    'weeks' => 'Semanas',
+    'months' => 'Meses',
+    'years' => 'Anos',
+    'from_now' => 'Desde agora',
+    'ago' => 'Atrás',
+
     'between_and' => 'e',
 ];
