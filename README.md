@@ -5,9 +5,6 @@
 
 A collection of easy-to-use filters with clause conditions to [Filament](https://filamentphp.com)
 
-> **Warning**
-> The 3.x is still in beta but compatible for filament 3.x
-
 > **Note**
 > For **Filament 2.x** use **[2.x](https://github.com/webbingbrasil/filament-advancedfilter/tree/2.x)** branch
 
