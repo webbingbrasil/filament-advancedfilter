@@ -12,7 +12,7 @@ A collection of easy-to-use filters with clause conditions to [Filament](https:/
 
 Install the package via composer (requires filament >= 3.x)
 ```bash
-composer require webbingbrasil/filament-advancedfilter "^3.0@beta"
+composer require webbingbrasil/filament-advancedfilter "^3.0"
 ```
 
 Optionally you can publish the translation files
