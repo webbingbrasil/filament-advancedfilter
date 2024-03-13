@@ -92,7 +92,7 @@ class NumberFilter extends BaseFilter
                 fn (Builder $query) => $query->where($column, $operator, null)
             )
             ->when(
-                !empty($data['value']) && !$isSetClause,
+                is_numeric($data['value']) && !$isSetClause,
                 fn (Builder $query) => $query->where($column, $operator, $data['value'])
             );
     }
