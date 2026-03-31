@@ -6,6 +6,7 @@ use Filament\Forms\Get;
 use Filament\Tables\Filters\BaseFilter;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class NumberFilter extends BaseFilter
@@ -29,15 +30,15 @@ class NumberFilter extends BaseFilter
         $this->indicateUsing(function (array $state): array {
             if (isset($state['clause']) && !empty($state['clause'])) {
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
-                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
+                    return [$this->getLabel() . ' ' . Str::lower($this->clauses()[$state['clause']])];
                 }
                 if ($state['clause'] === self::CLAUSE_BETWEEN) {
-                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) .
+                    return [$this->getLabel() . ' ' . Str::lower($this->clauses()[$state['clause']]) . ' ' . ($state['from'] ?? 0) .
                     ' ' . __('filament-advancedfilter::clauses.between_and') . ' ' .
                     ($state['until'] ?? "~")];
                 }
                 if ($state['value']) {
-                    return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . $state['value']];
+                    return [$this->getLabel() . ' ' . Str::lower($this->clauses()[$state['clause']]) . ' ' . $state['value']];
                 }
             }
 

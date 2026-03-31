@@ -9,6 +9,7 @@ use Filament\Tables\Filters\BaseFilter;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class DateFilter extends BaseFilter
@@ -31,7 +32,7 @@ class DateFilter extends BaseFilter
 
         $this->indicateUsing(function (array $state): array {
             if (isset($state['clause']) && !empty($state['clause'])) {
-                $message = $this->getLabel() . ' ' . $this->clauses()[$state['clause']];
+                $message = $this->getLabel() . ' ' . Str::lower($this->clauses()[$state['clause']]);
 
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                     return [$message];

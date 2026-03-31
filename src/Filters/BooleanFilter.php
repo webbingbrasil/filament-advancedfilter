@@ -4,6 +4,7 @@ namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
 use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
 class BooleanFilter extends BaseFilter
@@ -24,7 +25,7 @@ class BooleanFilter extends BaseFilter
 
         $this->indicateUsing(function (array $state): array {
             return isset($state['clause']) && !empty($state['clause'])
-                ? [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]]
+                ? [$this->getLabel() . ' ' . Str::lower($this->clauses()[$state['clause']])]
                 : [];
         });
     }
