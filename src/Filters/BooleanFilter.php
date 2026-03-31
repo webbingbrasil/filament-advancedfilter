@@ -11,11 +11,15 @@ class BooleanFilter extends BaseFilter
     use HasClauses;
 
     const CLAUSE_IS_TRUE = 'true';
+
     const CLAUSE_IS_FALSE = 'false';
+
     const CLAUSE_SET = 'set';
+
     const CLAUSE_NOT_SET = 'not_set';
 
     protected bool $showUnknowns = false;
+
     protected ?bool $nullsAre = null;
 
     protected function setUp(): void
@@ -23,7 +27,7 @@ class BooleanFilter extends BaseFilter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            return isset($state['clause']) && !empty($state['clause'])
+            return isset($state['clause']) && ! empty($state['clause'])
                 ? [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]]
                 : [];
         });
@@ -55,8 +59,7 @@ class BooleanFilter extends BaseFilter
 
         if ($this->nullsAre !== null && $this->nullsAre === $value) {
             return $query->where(
-                fn (Builder $query) =>
-                $query->where($column, $operator, $value)->orWhereNull($column)
+                fn (Builder $query) => $query->where($column, $operator, $value)->orWhereNull($column)
             );
         }
 

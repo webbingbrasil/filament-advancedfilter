@@ -2,9 +2,9 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Tables\Filters\BaseFilter;
-use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
@@ -13,14 +13,23 @@ class TextFilter extends BaseFilter
     use HasClauses;
 
     const CLAUSE_EQUAL = 'equal';
+
     const CLAUSE_NOT_EQUAL = 'not_equal';
+
     const CLAUSE_START_WITH = 'start_with';
+
     const CLAUSE_NOT_START_WITH = 'not_start_with';
+
     const CLAUSE_END_WITH = 'end_with';
+
     const CLAUSE_NOT_END_WITH = 'not_end_with';
+
     const CLAUSE_CONTAIN = 'contain';
+
     const CLAUSE_NOT_CONTAIN = 'not_contain';
+
     const CLAUSE_SET = 'set';
+
     const CLAUSE_NOT_SET = 'not_set';
 
     protected function setUp(): void
@@ -28,18 +37,18 @@ class TextFilter extends BaseFilter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            if (!isset($state['clause'])) {
+            if (! isset($state['clause'])) {
                 return [];
             }
-            
+
             if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                 return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
             }
 
-            if (!isset($state['value'])) {
+            if (! isset($state['value'])) {
                 return [];
             }
-            
+
             if ($state['clause'] && $state['value']) {
                 return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' "' . $state['value'] . '"'];
             }
@@ -73,7 +82,7 @@ class TextFilter extends BaseFilter
             default => '='
         };
 
-        if (!in_array($clause, [static::CLAUSE_SET, static::CLAUSE_NOT_SET]) && blank($data['value'])) {
+        if (! in_array($clause, [static::CLAUSE_SET, static::CLAUSE_NOT_SET]) && blank($data['value'])) {
             return $query;
         }
 

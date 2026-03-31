@@ -4,5 +4,4 @@ namespace Webbingbrasil\FilamentAdvancedFilter;
 
 class FilamentAdvancedFilter
 {
-
 }

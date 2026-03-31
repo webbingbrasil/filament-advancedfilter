@@ -3,11 +3,11 @@
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
 use Carbon\Carbon;
-use Filament\Forms\Get;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Filters\BaseFilter;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Get;
+use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
@@ -16,13 +16,21 @@ class DateFilter extends BaseFilter
     use HasClauses;
 
     const CLAUSE_EQUAL = 'equal';
+
     const CLAUSE_NOT_EQUAL = 'not_equal';
+
     const CLAUSE_ON_AFTER = 'on_after';
+
     const CLAUSE_ON_BEFORE = 'on_before';
+
     const CLAUSE_GREATER_THAN = 'greater_than';
+
     const CLAUSE_LESS_THAN = 'less_than';
+
     const CLAUSE_BETWEEN = 'between';
+
     const CLAUSE_SET = 'set';
+
     const CLAUSE_NOT_SET = 'not_set';
 
     protected function setUp(): void
@@ -30,7 +38,7 @@ class DateFilter extends BaseFilter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            if (isset($state['clause']) && !empty($state['clause'])) {
+            if (isset($state['clause']) && ! empty($state['clause'])) {
                 $message = $this->getLabel() . ' ' . $this->clauses()[$state['clause']];
 
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
@@ -48,7 +56,7 @@ class DateFilter extends BaseFilter
                         $message . ' ' .
                         ($state['from'] ? Carbon::parse($state['from'])->format(config('tables.date_format', 'Y-m-d')) : 0) .
                         ' ' . __('filament-advancedfilter::clauses.between_and') . ' ' .
-                        ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : "~")
+                        ($state['until'] ? Carbon::parse($state['until'])->format(config('tables.date_format', 'Y-m-d')) : '~'),
                     ];
                 }
                 if ($state['value']) {
@@ -91,11 +99,11 @@ class DateFilter extends BaseFilter
             return $query
                 ->when(
                     $data['from'],
-                    fn (Builder $query, $date): Builder => $query->whereDate($column, '>=', $date),
+                    fn (Builder $query, mixed $date): Builder => $query->whereDate($column, '>=', $date),
                 )
                 ->when(
                     $data['until'],
-                    fn (Builder $query, $date): Builder => $query->whereDate($column, '<=', $date),
+                    fn (Builder $query, mixed $date): Builder => $query->whereDate($column, '<=', $date),
                 );
         }
 
@@ -112,12 +120,12 @@ class DateFilter extends BaseFilter
                 fn (Builder $query) => $query->where($column, $operator, null)
             )
             ->when(
-                !empty($value) && !$isSetClause,
+                ! empty($value) && ! $isSetClause,
                 fn (Builder $query) => $query->where($column, $operator, $value)
             );
     }
 
-    protected function formatPeriodClause($data): ?Carbon
+    protected function formatPeriodClause(array $data): ?Carbon
     {
         if (empty($data['period_value'])) {
             return null;
@@ -126,7 +134,7 @@ class DateFilter extends BaseFilter
         return Carbon::parse(implode(' ', [
             intval($data['period_value']),
             $data['period'],
-            $data['direction']
+            $data['direction'],
         ]));
     }
 
@@ -135,13 +143,13 @@ class DateFilter extends BaseFilter
         return [
             DatePicker::make('value')
                 ->hiddenLabel()
-                ->visible(fn (Get $get) => !in_array($get('clause'), [
+                ->visible(fn (Get $get) => ! in_array($get('clause'), [
                     static::CLAUSE_GREATER_THAN,
                     static::CLAUSE_LESS_THAN,
                     static::CLAUSE_BETWEEN,
                     static::CLAUSE_NOT_SET,
                     static::CLAUSE_SET,
-                    null
+                    null,
                 ])),
             DatePicker::make('from')
                 ->label(__('filament-advancedfilter::clauses.from'))
@@ -176,7 +184,7 @@ class DateFilter extends BaseFilter
             Select::make('direction')
                 ->options([
                     null => __('filament-advancedfilter::clauses.from_now'),
-                    'ago' => __('filament-advancedfilter::clauses.ago')
+                    'ago' => __('filament-advancedfilter::clauses.ago'),
                 ])
                 ->hiddenLabel()
                 ->selectablePlaceholder(false)

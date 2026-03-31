@@ -2,9 +2,9 @@
 
 namespace Webbingbrasil\FilamentAdvancedFilter\Filters;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Tables\Filters\BaseFilter;
-use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentAdvancedFilter\Concerns\HasClauses;
 
@@ -13,13 +13,21 @@ class NumberFilter extends BaseFilter
     use HasClauses;
 
     const CLAUSE_EQUAL = 'equal';
+
     const CLAUSE_NOT_EQUAL = 'not_equal';
+
     const CLAUSE_GREATER_OR_EQUAL = 'greater_equal';
+
     const CLAUSE_LESS_OR_EQUAL = 'less_equal';
+
     const CLAUSE_GREATER_THAN = 'greater_than';
+
     const CLAUSE_LESS_THAN = 'less_than';
+
     const CLAUSE_BETWEEN = 'between';
+
     const CLAUSE_SET = 'set';
+
     const CLAUSE_NOT_SET = 'not_set';
 
     protected function setUp(): void
@@ -27,14 +35,14 @@ class NumberFilter extends BaseFilter
         parent::setUp();
 
         $this->indicateUsing(function (array $state): array {
-            if (isset($state['clause']) && !empty($state['clause'])) {
+            if (isset($state['clause']) && ! empty($state['clause'])) {
                 if ($state['clause'] === self::CLAUSE_SET || $state['clause'] === self::CLAUSE_NOT_SET) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']]];
                 }
                 if ($state['clause'] === self::CLAUSE_BETWEEN) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . ($state['from'] ?? 0) .
                     ' ' . __('filament-advancedfilter::clauses.between_and') . ' ' .
-                    ($state['until'] ?? "~")];
+                    ($state['until'] ?? '~')];
                 }
                 if ($state['value']) {
                     return [$this->getLabel() . ' ' . $this->clauses()[$state['clause']] . ' ' . $state['value']];
@@ -76,11 +84,11 @@ class NumberFilter extends BaseFilter
             return $query
                 ->when(
                     $data['from'],
-                    fn (Builder $query, $value): Builder => $query->where($column, '>=', $value),
+                    fn (Builder $query, mixed $value): Builder => $query->where($column, '>=', $value),
                 )
                 ->when(
                     $data['until'],
-                    fn (Builder $query, $value): Builder => $query->where($column, '<=', $value),
+                    fn (Builder $query, mixed $value): Builder => $query->where($column, '<=', $value),
                 );
         }
 
@@ -92,7 +100,7 @@ class NumberFilter extends BaseFilter
                 fn (Builder $query) => $query->where($column, $operator, null)
             )
             ->when(
-                is_numeric($data['value']) && !$isSetClause,
+                is_numeric($data['value']) && ! $isSetClause,
                 fn (Builder $query) => $query->where($column, $operator, $data['value'])
             );
     }
@@ -105,11 +113,11 @@ class NumberFilter extends BaseFilter
                 ->debounce($this->debounce)
                 ->hiddenLabel()
                 ->placeholder('0')
-                ->visible(fn (Get $get) => !in_array($get('clause'), [
+                ->visible(fn (Get $get) => ! in_array($get('clause'), [
                     static::CLAUSE_BETWEEN,
                     static::CLAUSE_NOT_SET,
                     static::CLAUSE_SET,
-                    null
+                    null,
                 ])),
             TextInput::make('from')
                 ->label(__('filament-advancedfilter::clauses.from'))

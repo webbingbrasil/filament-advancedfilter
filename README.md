@@ -164,6 +164,9 @@ FilamentAdvancedFilter\Filters\TextFilter::make('brand')
 
 By default the debounce time is 500ms.
 
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently. 
 
 ## Credits
 
